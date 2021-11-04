@@ -29,6 +29,6 @@ jobs:
            git add ANTLR_VERSION.md &&
            git commit -m "[UPD] Updating Antlr4 to V$ANTLR_VERSION" &&
            git tag $ANTLR_VERSION &&
-           git push origin main
+           git push origin main --tags
            )
            
