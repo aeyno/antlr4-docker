@@ -16,5 +16,9 @@ jobs:
     - uses: actions/checkout@v2
     - name: Install dependencies
       run: sudo apt-get update && sudo apt-get install -y curl jq
+    - name: Docker login
+      run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
     - name: Build the Docker image
-      run: export ANTLR_VERSION=`curl -s https://api.github.com/repos/antlr/antlr4/releases | jq -r '.[0].tag_name'` && docker build . --file Dockerfile --tag any0ne22/antlr4:$ANTLR_VERSION
+      run: export ANTLR_VERSION=`curl -s https://api.github.com/repos/antlr/antlr4/releases | jq -r '.[0].tag_name'` &&\
+           docker build . --file Dockerfile --tag any0ne22/antlr4:$ANTLR_VERSION
+           
