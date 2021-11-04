@@ -27,6 +27,6 @@ jobs:
            git config user.email "<>" &&
            git add ANTLR_VERSION.md &&
            git commit -m "[UPD] Updating Antlr4 to V$ANTLR_VERSION" &&
-           git push origin master
+           git push origin main
            )
            
