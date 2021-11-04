@@ -23,15 +23,13 @@ jobs:
            git config user.email "<>"
     - name: Build the Docker image
       run: export ANTLR_VERSION=`curl -s https://api.github.com/repos/antlr/antlr4/releases | jq -r '.[0].tag_name'` &&
-           test `cat ANTLR_VERSION.md` = $ANTLR_VERSION || (
+           export OLD_VERSION=`curl -s https://api.github.com/repos/Any0ne22/antlr4-docker/releases | jq -r '.[0].tag_name'` &&
+           test $OLD_VERSION = $ANTLR_VERSION || (
            docker build . --file Dockerfile --tag any0ne22/antlr4:$ANTLR_VERSION &&
            docker image tag any0ne22/antlr4:$ANTLR_VERSION any0ne22/antlr4:$ANTLR_VERSION &&
            docker image tag any0ne22/antlr4:$ANTLR_VERSION any0ne22/antlr4:latest &&
-           docker image push any0ne22/antlr4:$ANTLR_VERSION &&
            docker image push any0ne22/antlr4:latest && 
-           echo $ANTLR_VERSION > ANTLR_VERSION.md &&
-           git add ANTLR_VERSION.md &&
-           git commit -m "[UPD] Updating Antlr4 to V$ANTLR_VERSION" &&
+           docker image push any0ne22/antlr4:$ANTLR_VERSION &&
            git tag $ANTLR_VERSION &&
            git push origin main --tags
            )
