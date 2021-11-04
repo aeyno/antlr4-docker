@@ -20,5 +20,12 @@ jobs:
       run: docker login -u "${{ secrets.DOCKER_USERNAME }}" -p "${{ secrets.DOCKER_PASSWORD }}"
     - name: Build the Docker image
       run: export ANTLR_VERSION=`curl -s https://api.github.com/repos/antlr/antlr4/releases | jq -r '.[0].tag_name'` &&
-           docker build . --file Dockerfile --tag any0ne22/antlr4:$ANTLR_VERSION
+           test `cat ANTLR_VERSION.md` = $ANTLR_VERSION || (
+           docker build . --file Dockerfile --tag any0ne22/antlr4:$ANTLR_VERSION &&
+           git config user.name "GitHub Actions Bot" &&
+           git config user.email "<>" &&
+           git add ANTLR_VERSION.md
+           git commit -m "[UPD] Updating Antlr4 to V$ANTLR_VERSION" &&
+           git push origin master
+           )
            
