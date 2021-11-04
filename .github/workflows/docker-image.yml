@@ -17,4 +17,4 @@ jobs:
     - name: Get Antlr4 version
       run: sudo apt-get update && sudo apt-get install -y curl jq && export ANTLR_VERSION=`curl -s https://api.github.com/repos/antlr/antlr4/releases | jq -r '.[0].tag_name'`
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag Any0ne22/antlr4:`$ANTLR_VERSION`
+      run: docker build . --file Dockerfile --tag Any0ne22/antlr4:$($ANTLR_VERSION)
