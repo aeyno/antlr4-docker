@@ -19,7 +19,7 @@ jobs:
     - name: Docker login
       run: docker login -u "${{ secrets.DOCKER_USERNAME }}" -p "${{ secrets.DOCKER_PASSWORD }}"
     - name: Git config
-      run: git config user.name "GitHub Actions Bot"
+      run: git config user.name "GitHub Actions Bot" &&
            git config user.email "<>"
     - name: Build the Docker image
       run: export ANTLR_VERSION=`curl -s https://api.github.com/repos/antlr/antlr4/releases | jq -r '.[0].tag_name'` &&
